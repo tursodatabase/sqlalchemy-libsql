@@ -19,12 +19,14 @@ def _build_connection_url(url, query, secure):
     else:
         scheme = "http"
 
+    host = f"[{url.host}]" if ":" in url.host else url.host
+
     if url.username and url.password:
-        netloc = f"{url.username}:{url.password}@{url.host}"
+        netloc = f"{url.username}:{url.password}@{host}"
     elif url.username:
-        netloc = f"{url.username}@{url.host}"
+        netloc = f"{url.username}@{host}"
     else:
-        netloc = url.host
+        netloc = host
 
     if url.port:
         netloc += f":{url.port}"
